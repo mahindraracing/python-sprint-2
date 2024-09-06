@@ -1,5 +1,3 @@
-import random
-
 def simulate_race(laps):
     teams = {
         "Mahindra Racing": {"skill": 85, "reliability": 90},
@@ -8,6 +6,7 @@ def simulate_race(laps):
         "Team C": {"skill": 80, "reliability": 92}
     }
 
+    laps = int(laps)
     results = {team: 0 for team in teams}
     
     for lap in range(laps):
@@ -26,29 +25,3 @@ def simulate_race(laps):
             print(f"{team}: {lap_time:.2f}s")
     
     return results
-
-def get_feedback():
-    feedback = input("Escreva seu feedback: ")
-    return feedback
-
-def avaliate_feedback():
-    
-
-def main():
-    while True:
-        print("""
-        Menu:
-              1 - Simulate Race
-              2 - Send Feedback
-    """)    
-        
-        escolha = input("Selecione uma opção 1-*")
-        match escolha:
-            case 1:
-                laps = input("How many laps you would like the race to have?")
-                simulate_race(laps)
-            
-    
-
-if __name__ == "__main__":
-    main()
