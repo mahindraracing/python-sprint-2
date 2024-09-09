@@ -1,16 +1,21 @@
+feedbacks = {
+    "good-feedbacks": {},
+    "neutral-feedbacks": {},
+    "bad-feedbacks": {}
+}
+
 def get_feedback():
-    feedback = input("Escreva seu feedback: ")
+    feedback = input("Write your feedback: ")
     return feedback
 
-
-def avaliate_feedback(feedback, feedbacks_dict):
+def evaluate_feedback(feedback, feedbacks_dict):
     key_words = {
-        "good": {"great", "good", "amazing", "funny", "entertaing", "cool", "liked", "like"},
-        "bad": {"awful", "bad", "horrible"} 
+        "good": {"great", "good", "amazing", "funny", "entertaining", "cool"},
+        "bad": {"awful", "bad", "horrible"}
     }
-
+    
     feedback_lower = feedback.lower()
-
+    
     if any(word in feedback_lower for word in key_words["good"]):
         category = "good-feedbacks"
     elif any(word in feedback_lower for word in key_words["bad"]):
@@ -18,6 +23,7 @@ def avaliate_feedback(feedback, feedbacks_dict):
     else:
         category = "neutral-feedbacks"
 
+    # Add the feedback to the appropriate category
     feedback_count = len(feedbacks_dict[category])
     feedbacks_dict[category][feedback_count] = feedback
 
@@ -28,7 +34,7 @@ def display_feedbacks(feedbacks):
     print("     Mahindra Racing Feedback Summary     ")
     print("=" * 40)
 
-    for category in ["good-feedbacks", "bad-feedbacks", "neutral-feedbacks"]:
+    for category in ["good-feedbacks", "neutral-feedbacks", "bad-feedbacks"]:
         print(f"\n{category.replace('-', ' ').title()}:")
         print("-" * 40)
         
@@ -42,6 +48,6 @@ def display_feedbacks(feedbacks):
 
     print("\nTotal Feedbacks:")
     print(f"Positive: {len(feedbacks['good-feedbacks'])}")
-    print(f"Negative: {len(feedbacks['bad-feedbacks'])}")
     print(f"Neutral: {len(feedbacks['neutral-feedbacks'])}")
+    print(f"Negative: {len(feedbacks['bad-feedbacks'])}")
     print("=" * 40 + "\n")
