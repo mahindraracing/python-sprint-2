@@ -1,7 +1,7 @@
 import random
 from src.helpers import force_list
 
-# Dicionário para armazenar cenários da corrida
+# Expanded dictionary for race scenarios
 race_scenarios = {
     "tire_wear": {
         "description": "The tires are wearing faster than expected.",
@@ -11,9 +11,9 @@ race_scenarios = {
             "worse": "Push with current tires"
         },
         "answers": {
-            1: "You request the driver to manage tire wear, he managed to do it and got an advantage!",
-            2: "You pit for new tires immediately, you lost time but it's okay, you manage to keep the same position.",
-            3: "You push with current tires. It got worse and the driver needed to change tires. You lost time and position." 
+            "1": "You request the driver to manage tire wear, he managed to do it and got an advantage!",
+            "2": "You pit for new tires immediately, you lost time but it's okay, you manage to keep the same position.",
+            "3": "You push with current tires. It got worse and the driver needed to change tires. You lost time and position." 
         }
     },
     "energy_management": {
@@ -24,52 +24,76 @@ race_scenarios = {
             "worse": "Maintain current energy usage"
         },
         "answers": {
-            1: "You use attack mode. You lost some energy, but the driver kept up and gained some positions!",
-            2: "You instruct the driver to save energy. He did it, but he stayed in the same position.",
-            3: "You maintain current energy usage. The energy started to end and the driver couldn't keep up. You lost position." 
+            "1": "You use attack mode. You lost some energy, but the driver kept up and gained some positions!",
+            "2": "You instruct the driver to save energy. He did it, but he stayed in the same position.",
+            "3": "You maintain current energy usage. The energy started to end and the driver couldn't keep up. You lost position." 
+        }
+    },
+    "weather_change": {
+        "description": "A sudden rain shower is approaching the track.",
+        "options": {
+            "best": "Pit for wet tires preemptively",
+            "OK": "Wait and see how the weather develops",
+            "worse": "Stick with dry tires"
+        },
+        "answers": {
+            "1": "You pit for wet tires just before the rain hits. The driver gains multiple positions as others struggle!",
+            "2": "You wait to see how the weather develops. The rain is light, and you maintain your position.",
+            "3": "You stick with dry tires. The rain intensifies, and the driver struggles to keep the car on track, losing positions."
+        }
+    },
+    "rival_strategy": {
+        "description": "Your main rival is attempting an aggressive overtake.",
+        "options": {
+            "best": "Instruct driver to defend strategically",
+            "OK": "Let the rival pass to save energy",
+            "worse": "Engage in a risky battle for position"
+        },
+        "answers": {
+            "1": "Your driver defends strategically, maintaining position while preserving energy and tires.",
+            "2": "You let the rival pass, saving energy. You plan to counter-attack later in the race.",
+            "3": "You engage in a risky battle. Both cars lose time, and you end up losing more positions in the process."
         }
     }
-    # TODO: Add mais cenários
 }
 
-# Dicionário para armazenar sistemas de pontos
+# Expanded points system
 points_system = {
     "race_finish": {1: 25, 2: 18, 3: 15, 4: 12, 5: 10, 6: 8, 7: 6, 8: 4, 9: 2, 10: 1},
     "fastest_lap": 1,
     "energy_efficiency": 2,
+    "clean_racing": 1,  # New: bonus point for clean racing
+    "qualifying_position": {1: 3, 2: 2, 3: 1}  # New: points for qualifying position
 }
 
-# Lista para armazenar os estágios da corrida
-race_stages = ["Race Start", "Mid-Race", "Final Laps"]
+# Expanded race stages
+race_stages = ["Race Start", "Early Laps", "Mid-Race", "Late Race", "Final Laps"]
 
 def present_scenario(scenario):
     print(f"\nScenario: {scenario['description']}")
     for i, option in enumerate(scenario['options'].values(), 1):
         print(f"{i}. {option}")
     
-    choice = force_list([1, 2, 3], "That's not a valid option! Please select a number between 1 and 3: ")
+    choice = force_list(["1", "2", "3"], "That's not a valid option! Please select a number between 1 and 3: ")
     
     return choice
 
-
-def update_race_position(choice, current_position):
-    # Se a escolha for a melhor, diminui a posição, se for a pior, aumenta a posição e caso for a neutra, não faz nada
-    if choice == 1:
-        current_position -= 1
-    elif choice == 3:
-        current_position += 1
-
-    # Mostrar o texto dependendo do cenário
-    if race_scenarios["energy_management"]:
-        print(race_scenarios["energy_management"]["answers"][choice])    
-    elif race_scenarios["tire_wear"]:
-        print(race_scenarios["tire_wear"]["answers"][choice])
+def update_race_position(choice, current_position, scenario):
+    position_change = 0
+    if choice == "1":
+        position_change = -random.randint(1, 2)  # Gain 1-2 positions
+    elif choice == "2":
+        position_change = random.randint(1, 2)  # Lose 1-2 positions
     
-    return current_position
+    new_position =  current_position + position_change  # Ensure position is between 1 and 20
+    
+    print(scenario["answers"][choice])
+    if new_position != current_position:
+        print(f"{'Gained' if position_change < 0 else 'Lost'} {abs(position_change)} position(s).")
+    
+    return new_position
 
-
-# Função para calcular pontos
-def calculate_points(position, fastest_lap, energy_efficiency, positions_gained):
+def calculate_points(position, fastest_lap, energy_efficiency, positions_gained, clean_racing, qualifying_position):
     total_points = 0
 
     if position in points_system["race_finish"]:
@@ -78,44 +102,71 @@ def calculate_points(position, fastest_lap, energy_efficiency, positions_gained)
     if fastest_lap:
         total_points += points_system["fastest_lap"]
     
-    if energy_efficiency == 1: # 1 sendo o mais eficiente
+    if energy_efficiency == 1:  # 1 being the most efficient
         total_points += points_system["energy_efficiency"]
+
+    if clean_racing:
+        total_points += points_system["clean_racing"]
+
+    if qualifying_position in points_system["qualifying_position"]:
+        total_points += points_system["qualifying_position"][qualifying_position]
 
     total_points += positions_gained
 
     return total_points
 
+def simulate_qualifying():
+    print("\n--- Qualifying Session ---")
+    print("Your driver is heading out for the qualifying session.")
+    qualifying_position = random.randint(1, 20)
+    print(f"Qualifying result: P{qualifying_position}")
+    return qualifying_position
+
 def main_game_loop():
     print("Welcome to the Mahindra Racing Virtual Pit Crew Challenge!")
     total_points = 0
-    race_position = 10  # Posição inicial
+    qualifying_position = simulate_qualifying()
+    race_position = qualifying_position
+    energy_level = 100
+    tire_wear = 0
+    clean_racing = True
 
     for stage in race_stages:
         print(f"\n--- {stage} ---")
-        # Randomiza um cenário para apresentar
         scenario = random.choice(list(race_scenarios.values()))
-
-        # Apresenta o cenário
         choice = present_scenario(scenario)
         
-        # Dependendo da resposta do usuário, sobe ou abaixa na posição da corrida
-        race_position = update_race_position(choice, race_position)
+        race_position = update_race_position(choice, race_position, scenario)
         
-        # TODO: Update other race parameters (tire wear, energy levels, etc.)
+        # Update other race parameters
+        energy_level -= random.randint(5, 15)
+        tire_wear += random.randint(5, 15)
         
-        print(f"Current race position: {race_position}")
+        if random.random() < 0.1:  # 10% chance of a clean racing incident
+            clean_racing = False
+            print("Warning: Minor contact with another car. Clean racing bonus at risk!")
+        
+        print(f"Current race position: P{race_position}")
+        print(f"Energy level: {energy_level}%")
+        print(f"Tire wear: {tire_wear}%")
 
-    # Cálculos do final da corrida
+        if energy_level <= 20:
+            print("Low energy warning! Consider energy-saving tactics.")
+        if tire_wear >= 80:
+            print("High tire wear warning! Consider a pit stop soon.")
 
-    # Randomizar se em uma das laps, o jogador foi o mais rápido 
-    fastest_lap = random.choice([True, False])
-
-    # Randomizar a eficiência de energia
+    # End of race calculations
+    fastest_lap = random.random() < 0.2  # 20% chance of setting fastest lap
     energy_efficiency = random.randint(1, 10)
+    positions_gained = qualifying_position - race_position
 
-    # Calcular as posições ganhas
-    positions_gained = 10 - race_position  # Posição inicial 10
-
-    total_points = calculate_points(race_position, fastest_lap, energy_efficiency, positions_gained)
-    print(f"\nRace finished! Final position: {race_position}")
+    total_points = calculate_points(race_position, fastest_lap, energy_efficiency, positions_gained, clean_racing, qualifying_position)
+    
+    print("\n--- Race Summary ---")
+    print(f"Starting position: P{qualifying_position}")
+    print(f"Final position: P{race_position}")
+    print(f"Positions gained: {positions_gained}")
+    print(f"Fastest lap: {'Yes' if fastest_lap else 'No'}")
+    print(f"Energy efficiency ranking: {energy_efficiency}/10")
+    print(f"Clean racing: {'Yes' if clean_racing else 'No'}")
     print(f"Total points earned: {total_points}")

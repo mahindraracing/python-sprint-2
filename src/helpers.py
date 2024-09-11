@@ -1,6 +1,5 @@
-
-def force_list(list, error_message):
-    choice = input("Select one option (1-3): ")
+def force_list(message, list, error_message):
+    choice = input(message)
     while not choice in list:
          choice = input(error_message)
     

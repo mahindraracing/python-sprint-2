@@ -51,3 +51,5 @@ def display_feedbacks(feedbacks):
     print(f"Neutral: {len(feedbacks['neutral-feedbacks'])}")
     print(f"Negative: {len(feedbacks['bad-feedbacks'])}")
     print("=" * 40 + "\n")
+    
+    return

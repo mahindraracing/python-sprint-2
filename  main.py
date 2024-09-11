@@ -3,6 +3,7 @@ from src.feedbacks import get_feedback, evaluate_feedback, display_feedbacks
 from src.races import simulate_race
 from src.pit_crew_challenge import main_game_loop
 from src.helpers import force_list, force_number
+from src.quiz import run_quiz
 
 def main():
     feedbacks = {
@@ -19,6 +20,7 @@ def main():
         2 - Virtual Pit Crew Challenge
         3 - Send Feedback
         4 - View Fedbacks
+        5 - Play Quiz
         """)
         
         choice = input("Select an option 1-4: ")
@@ -33,7 +35,8 @@ def main():
                 feedbacks = evaluate_feedback(feedback, feedbacks)
             case "4":
                 display_feedbacks(feedbacks)
-
+            case "5":
+                run_quiz()
 
 if __name__ == "__main__":
     main()
