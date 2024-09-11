@@ -1,4 +1,5 @@
 import random
+from src.helpers import force_list
 
 # Dicionário para armazenar cenários da corrida
 race_scenarios = {
@@ -46,8 +47,7 @@ def present_scenario(scenario):
     for i, option in enumerate(scenario['options'].values(), 1):
         print(f"{i}. {option}")
     
-    # TODO: Implementar um helper para tratar o código
-    choice = int(input("Enter your choice (1-3): "))
+    choice = force_list([1, 2, 3], "That's not a valid option! Please select a number between 1 and 3: ")
     
     return choice
 

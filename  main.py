@@ -2,6 +2,7 @@ import random
 from src.feedbacks import get_feedback, evaluate_feedback, display_feedbacks
 from src.races import simulate_race
 from src.pit_crew_challenge import main_game_loop
+from src.helpers import force_list, force_number
 
 def main():
     feedbacks = {
@@ -23,7 +24,7 @@ def main():
         choice = input("Select an option 1-4: ")
         match choice:
             case "1":
-                laps = input("How many laps you would like the race to have?")
+                laps = force_number("How many laps you would like the race to have? ", "Please enter a number: ")
                 simulate_race(laps)
             case "2":
                 main_game_loop()
