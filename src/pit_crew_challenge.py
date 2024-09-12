@@ -67,14 +67,14 @@ points_system = {
 }
 
 # Expanded race stages
-race_stages = ["Race Start", "Early Laps", "Mid-Race", "Late Race", "Final Laps"]
+race_stages = ["Race Start", "Mid-Race", "Late Race", "Final Laps"]
 
 def present_scenario(scenario):
     print(f"\nScenario: {scenario['description']}")
     for i, option in enumerate(scenario['options'].values(), 1):
         print(f"{i}. {option}")
     
-    choice = force_list(["1", "2", "3"], "That's not a valid option! Please select a number between 1 and 3: ")
+    choice = force_list("Choose an option between 1-3: ", ["1", "2", "3"], "That's not a valid option! Please select a number between 1 and 3: ")
     
     return choice
 
@@ -115,6 +115,11 @@ def calculate_points(position, fastest_lap, energy_efficiency, positions_gained,
 
     return total_points
 
+def select_and_remove_scenario(scenarios):
+    scenario_key = random.choice(list(scenarios.keys()))
+    scenario = scenarios.pop(scenario_key)
+    return scenario
+
 def simulate_qualifying():
     print("\n--- Qualifying Session ---")
     print("Your driver is heading out for the qualifying session.")
@@ -131,11 +136,20 @@ def main_game_loop():
     tire_wear = 0
     clean_racing = True
 
+    available_scenarios = race_scenarios.copy()
+
     for stage in race_stages:
         print(f"\n--- {stage} ---")
-        scenario = random.choice(list(race_scenarios.values()))
-        choice = present_scenario(scenario)
         
+        if available_scenarios:
+            scenario = select_and_remove_scenario(available_scenarios)
+        else:
+            print("All scenarios have been used. Reusing all scenarios.")
+            available_scenarios = race_scenarios.copy()
+            scenario = select_and_remove_scenario(available_scenarios) 
+
+        choice = present_scenario(scenario)
+
         race_position = update_race_position(choice, race_position, scenario)
         
         # Update other race parameters

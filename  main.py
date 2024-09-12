@@ -23,7 +23,7 @@ def main():
         5 - Play Quiz
         """)
         
-        choice = input("Select an option 1-4: ")
+        choice = input("Select an option 1-5: ")
         match choice:
             case "1":
                 laps = force_number("How many laps you would like the race to have? ", "Please enter a number: ")
@@ -37,6 +37,9 @@ def main():
                 display_feedbacks(feedbacks)
             case "5":
                 run_quiz()
+            case _:
+                print("That's not valid! Please select an option between 1-5")
+            
 
 if __name__ == "__main__":
     main()
