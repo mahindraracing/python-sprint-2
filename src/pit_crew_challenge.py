@@ -1,7 +1,7 @@
 import random
 from src.helpers import force_list
 
-# Expanded dictionary for race scenarios
+# Dicionário para diferentes cenários de corrida
 race_scenarios = {
     "tire_wear": {
         "description": "The tires are wearing faster than expected.",
@@ -57,7 +57,7 @@ race_scenarios = {
     }
 }
 
-# Expanded points system
+# Sistema de pontuação
 points_system = {
     "race_finish": {1: 25, 2: 18, 3: 15, 4: 12, 5: 10, 6: 8, 7: 6, 8: 4, 9: 2, 10: 1},
     "fastest_lap": 1,
@@ -66,9 +66,10 @@ points_system = {
     "qualifying_position": {1: 3, 2: 2, 3: 1}  # New: points for qualifying position
 }
 
-# Expanded race stages
+# Estágios da corrida
 race_stages = ["Race Start", "Mid-Race", "Late Race", "Final Laps"]
 
+# Função para apresentar o cenário
 def present_scenario(scenario):
     print(f"\nScenario: {scenario['description']}")
     for i, option in enumerate(scenario['options'].values(), 1):
@@ -78,6 +79,7 @@ def present_scenario(scenario):
     
     return choice
 
+# Função para atualizar a posição da corrida
 def update_race_position(choice, current_position, scenario):
     position_change = 0
     if choice == "1":
@@ -93,6 +95,7 @@ def update_race_position(choice, current_position, scenario):
     
     return new_position
 
+# Função para calcular pontos
 def calculate_points(position, fastest_lap, energy_efficiency, positions_gained, clean_racing, qualifying_position):
     total_points = 0
 
@@ -115,11 +118,13 @@ def calculate_points(position, fastest_lap, energy_efficiency, positions_gained,
 
     return total_points
 
+# Função que remove o cenário para não repetí-lo no jogo
 def select_and_remove_scenario(scenarios):
     scenario_key = random.choice(list(scenarios.keys()))
     scenario = scenarios.pop(scenario_key)
     return scenario
 
+# Função que simula as qualificatórias
 def simulate_qualifying():
     print("\n--- Qualifying Session ---")
     print("Your driver is heading out for the qualifying session.")
@@ -127,6 +132,7 @@ def simulate_qualifying():
     print(f"Qualifying result: P{qualifying_position}")
     return qualifying_position
 
+# Função principal
 def main_game_loop():
     print("Welcome to the Mahindra Racing Virtual Pit Crew Challenge!")
     total_points = 0

@@ -1,7 +1,7 @@
 import random
 from src.helpers import force_list
 
-# Dictionary to store questions, options, and correct answers
+# Dicinário para as perguntas e respostas
 questions = {
     "What year did Mahindra Racing join Formula E?": {
         "options": ["2014", "2015", "2016", "2017"],
@@ -25,11 +25,13 @@ questions = {
     }
 }
 
+# Função que printa o bem-vindo do jogo
 def display_welcome():
     print("Welcome to the Mahindra Racing Formula E Quiz!")
     print("Test your knowledge about one of Formula E's exciting teams.")
     print("You'll be asked 5 questions. Good luck!\n")
 
+# Função que faz a pergunta ao usuário
 def ask_question(question, options):
     print(question)
     for i, option in enumerate(options, 1):
@@ -38,7 +40,8 @@ def ask_question(question, options):
     answer = force_list("Enter the number of your answer: ", ["1", "2", "3", "4"], f"Invalid input. Please enter a number between 1 and {len(options)}: ") 
 
     return answer    
-    
+
+# Função que printa a pontuação final 
 def display_final_score(score):
     print(f"Quiz completed! Your final score is: {score}/5")
     if score == 5:
@@ -48,6 +51,7 @@ def display_final_score(score):
     else:
         print("Good effort! There's always more to learn about Mahindra Racing.")
 
+# Função que mostra a matriz de pontuação
 def display_score_matrix(matrix):
     print("\nScore Matrix (Questions x Scores):")
     print("  0 1 2 3 4 5")
@@ -55,6 +59,7 @@ def display_score_matrix(matrix):
         print(f"{i} " + " ".join(str(cell) for cell in row))
     print("Rows represent questions, columns represent cumulative correct answers.")
 
+# Função principal
 def run_quiz():
     display_welcome()
     score = 0

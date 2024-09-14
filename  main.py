@@ -1,3 +1,4 @@
+# Importações
 import random
 from src.feedbacks import get_feedback, evaluate_feedback, display_feedbacks
 from src.races import simulate_race
@@ -6,6 +7,7 @@ from src.helpers import force_list, force_number
 from src.quiz import run_quiz
 
 def main():
+    # Dicionário para guardar os feedbacks
     feedbacks = {
         "good-feedbacks": {},
         "neutral-feedbacks": {},

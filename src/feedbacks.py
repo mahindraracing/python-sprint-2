@@ -1,13 +1,9 @@
-feedbacks = {
-    "good-feedbacks": {},
-    "neutral-feedbacks": {},
-    "bad-feedbacks": {}
-}
-
+# Método para pegar o feedback do usuário
 def get_feedback():
     feedback = input("Write your feedback: ")
     return feedback
 
+# Avaliar o feedback do usuário como bom, ruim ou neutro
 def evaluate_feedback(feedback, feedbacks_dict):
     key_words = {
         "good": {"great", "good", "amazing", "funny", "entertaining", "cool"},
@@ -29,6 +25,7 @@ def evaluate_feedback(feedback, feedbacks_dict):
 
     return feedbacks_dict
 
+# Função para printar o feedback
 def display_feedbacks(feedbacks):
     print("\n" + "=" * 40)
     print("     Mahindra Racing Feedback Summary     ")

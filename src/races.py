@@ -1,5 +1,6 @@
 import random
 
+# Função para simular uma corrida com a quantidade de voltas que o usuário pediu
 def simulate_race(laps):
     teams = {
         "Mahindra Racing": {"skill": 85, "reliability": 90},
