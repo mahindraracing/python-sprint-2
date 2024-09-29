@@ -19,7 +19,7 @@ def evaluate_feedback(feedback, feedbacks_dict):
     else:
         category = "neutral-feedbacks"
 
-    # Add the feedback to the appropriate category
+    # Adiciona o feedback para a categoria adequada
     feedback_count = len(feedbacks_dict[category])
     feedbacks_dict[category][feedback_count] = feedback
 

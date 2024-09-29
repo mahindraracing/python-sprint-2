@@ -62,8 +62,8 @@ points_system = {
     "race_finish": {1: 25, 2: 18, 3: 15, 4: 12, 5: 10, 6: 8, 7: 6, 8: 4, 9: 2, 10: 1},
     "fastest_lap": 1,
     "energy_efficiency": 2,
-    "clean_racing": 1,  # New: bonus point for clean racing
-    "qualifying_position": {1: 3, 2: 2, 3: 1}  # New: points for qualifying position
+    "clean_racing": 1,
+    "qualifying_position": {1: 3, 2: 2, 3: 1}  
 }
 
 # Estágios da corrida
@@ -83,11 +83,11 @@ def present_scenario(scenario):
 def update_race_position(choice, current_position, scenario):
     position_change = 0
     if choice == "1":
-        position_change = -random.randint(1, 2)  # Gain 1-2 positions
+        position_change = -random.randint(1, 2)  # Ganhar 1-2 posições 
     elif choice == "2":
-        position_change = random.randint(1, 2)  # Lose 1-2 positions
+        position_change = random.randint(1, 2)  # Perder 1-2 posições
     
-    new_position =  current_position + position_change  # Ensure position is between 1 and 20
+    new_position =  current_position + position_change  # Garantir que posição esteja entre 1 e 20
     
     print(scenario["answers"][choice])
     if new_position != current_position:
@@ -105,7 +105,7 @@ def calculate_points(position, fastest_lap, energy_efficiency, positions_gained,
     if fastest_lap:
         total_points += points_system["fastest_lap"]
     
-    if energy_efficiency == 1:  # 1 being the most efficient
+    if energy_efficiency == 1:  # 1 sendo o mais eficiente
         total_points += points_system["energy_efficiency"]
 
     if clean_racing:
@@ -158,11 +158,11 @@ def main_game_loop():
 
         race_position = update_race_position(choice, race_position, scenario)
         
-        # Update other race parameters
+        # Atualizar parâmetros de corrida
         energy_level -= random.randint(5, 15)
         tire_wear += random.randint(5, 15)
         
-        if random.random() < 0.1:  # 10% chance of a clean racing incident
+        if random.random() < 0.1:  # 10% de chance de perder o status de corrida limpa
             clean_racing = False
             print("Warning: Minor contact with another car. Clean racing bonus at risk!")
         
@@ -176,7 +176,7 @@ def main_game_loop():
             print("High tire wear warning! Consider a pit stop soon.")
 
     # End of race calculations
-    fastest_lap = random.random() < 0.2  # 20% chance of setting fastest lap
+    fastest_lap = random.random() < 0.2  # 20% de chance de pegar a rodada mais rápida
     energy_efficiency = random.randint(1, 10)
     positions_gained = qualifying_position - race_position
 

@@ -64,7 +64,7 @@ def run_quiz():
     display_welcome()
     score = 0
     question_number = 0
-    score_matrix = [[0 for _ in range(6)] for _ in range(5)]  #6x5 matrix to store scores
+    score_matrix = [[0 for _ in range(6)] for _ in range(5)]  #6x5 matriz para guardar pontuação
 
     for question, data in random.sample(list(questions.items()), 5):
         question_number += 1
@@ -77,7 +77,7 @@ def run_quiz():
         else:
             print(f"Sorry, that's incorrect. The correct answer is: {data['correct']}")
         
-        score_matrix[question_number - 1][min(score, 5)] = 1  # Mark score in matrix
+        score_matrix[question_number - 1][min(score, 5)] = 1  # Marcar pontuação na matriz
         print(f"Your current score: {score}/{question_number}\n")
 
     display_final_score(score)
