@@ -1,9 +1,11 @@
 # 🏎️ Mahindra Racing Python Sprint 2 🏁
 
 ## 🌟 Project Overview
+
 This project is a Python-based application developed for Mahindra Racing to enhance visibility and engagement. It simulates various aspects of Formula E racing, including race simulations, a virtual pit crew challenge, and an interactive quiz about Mahindra Racing.
 
 ## 🚀 Features
+
 1. **🏁 Race Simulation**: Simulates a Formula E race with customizable lap counts.
 2. **🔧 Virtual Pit Crew Challenge**: An interactive game where players make strategic decisions during a race.
 3. **💬 Feedback System**: Allows users to provide feedback, which is then categorized and displayed.
@@ -11,6 +13,7 @@ This project is a Python-based application developed for Mahindra Racing to enha
 5. **📋 Interactive Menu**: Provides easy navigation through different features of the application.
 
 ## 📂 Project Structure
+
 - `main.py`: The entry point of the application, containing the main menu and game loop.
 - `src/`:
   - `feedbacks.py`: Handles the feedback system.
@@ -20,13 +23,16 @@ This project is a Python-based application developed for Mahindra Racing to enha
   - `quiz.py`: Implements the Mahindra Racing quiz.
 
 ## 🚗 How to Run
+
 1. Ensure you have Python installed on your system.
 2. Clone the repository: `git clone https://github.com/mahindraracing/python-sprint-2.git`
 3. Navigate to the project directory: `cd python-sprint-2`
 4. Run the main script: `python main.py`
 
 ## 👥 Team Members
+
 This project was developed by students from FIAP University:
+
 - 👨‍💻 Caio Suzano Ferreira da Silva (RM 554763)
 - 👨‍💻 Matheus Rivera Montovaneli (RM 555499)
 - 👨‍💻 Lucas Vasquez Silva (RM 555159)
@@ -34,11 +40,13 @@ This project was developed by students from FIAP University:
 - 👨‍💻 André Nakamatsu Rocha (RM 555004)
 
 ## 🤝 Contributing
+
 This is a university project and is not open for external contributions at this time.
 
 ## 🧑‍💻 Code Explanation
 
 ### main.py
+
 ```python
 def main():
     feedbacks = {
@@ -77,6 +85,7 @@ def main():
 This is the main entry point of the application. It creates a dictionary to store feedbacks and enters an infinite loop that displays a menu and handles user input using a match-case statement. Each case corresponds to a different feature of the application.
 
 ### feedbacks.py
+
 ```python
 def evaluate_feedback(feedback, feedbacks_dict):
     key_words = {
@@ -142,9 +151,11 @@ def main_game_loop():
 
     # ... end of race calculations ...
 ```
+
 This function implements the main loop of the Virtual Pit Crew Challenge. It simulates a race, presenting scenarios at each stage and updating race parameters based on the player's choices.
 
 ### quiz.py
+
 ```python
 def run_quiz():
     display_welcome()
@@ -167,9 +178,11 @@ def run_quiz():
     display_final_score(score)
     display_score_matrix(score_matrix)
 ```
+
 This function runs the Mahindra Racing quiz. It selects random questions, asks them, keeps track of the score, and displays the final results including a score matrix.
 
 ### races.py
+
 ```python
 def simulate_race(laps):
     teams = {
@@ -198,6 +211,7 @@ def simulate_race(laps):
     
     return results
 ```
+
 This function simulates a Formula E race. It takes a number of laps as input, defines teams with different skill and reliability ratings, and then simulates each lap of the race. It calculates lap times based on team skill and randomly occurring technical issues based on team reliability.
 
 ## 🏎️ Happy racing with Mahindra! 🏁
