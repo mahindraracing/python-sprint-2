@@ -43,6 +43,9 @@ This project was developed by students from FIAP University:
 
 This is a university project and is not open for external contributions at this time.
 
+## 📊 Use Case Diagram
+<img src='diagrama-caso-de-uso.jpg'>
+
 ## 🧑‍💻 Code Explanation
 
 ### main.py
@@ -211,7 +214,6 @@ def simulate_race(laps):
     
     return results
 ```
-
 This function simulates a Formula E race. It takes a number of laps as input, defines teams with different skill and reliability ratings, and then simulates each lap of the race. It calculates lap times based on team skill and randomly occurring technical issues based on team reliability.
 
 ## 🏎️ Happy racing with Mahindra! 🏁
